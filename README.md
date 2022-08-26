@@ -1,9 +1,10 @@
 # Light Docker version of 2048
 
- Based on alpine
- Based on NGINX
+Based on alpine
+Based on NGINX
 
 # Dockerfile
+
 
 ```sh
 FROM alpine:latest
@@ -26,8 +27,8 @@ CMD ["nginx", "-g", "daemon off;"]
 ```
 
 
-
 ## Run the docker container with your own build
+
 
 ```sh
     git clone https://github.com/vladskvortsov/docker-2048.git
@@ -35,14 +36,16 @@ CMD ["nginx", "-g", "daemon off;"]
     docker run -d -p 8080:80 --name 2048 docker-2048
 ```
 
-> Note: `--name 2048`to name the container.
+> Note: `--name 2048` to name the container.
 
 ## Run the docker container by pulling the image directly
+
 
 ```sh
     docker run -d -p 8080:80 vladskvortsov/docker-2048
 ```
 ## Access the game
+
 
 ```sh
     http://localhost:8080
