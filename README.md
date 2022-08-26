@@ -1,43 +1,55 @@
-# docker-2048
+# Light Docker version of 2048
 
-simple is better
+ Based on alpine
+ Based on NGINX
 
-a smaller docker version of 2048
+# Dockerfile
 
-Base on gabrielecirulli/2048(https://github.com/gabrielecirulli/2048)
+```sh
+FROM alpine:latest
 
-Base on alpine
+MAINTAINER vladskvortsov
 
-Base on nginx
+RUN apk --update add nginx
 
-#dockerfile
+COPY 2048 /usr/share/nginx/html
 
-    FROM alpine:latest
+RUN echo $'server { \n\
+	listen 80; \n\
+	listen [::]:80; \n\
+	root /usr/share/nginx/html; \n\
+	index index.html index.htm index.nginx-debian.html index.php; \n\
+	server_name examp.com; \n\
+}' > /etc/nginx/http.d/default.conf
 
-    MAINTAINER alex <alexwhen@gmail.com>
+CMD ["nginx", "-g", "daemon off;"]
+```
 
-    RUN apk --update add nginx
 
-    COPY 2048 /usr/share/nginx/html
 
-    EXPOSE 80
+## Run the docker container with your own build
 
-    CMD ["nginx", "-g", "daemon off;"]
+```sh
+    git clone https://github.com/vladskvortsov/docker-2048.git
+    docker build . -t docker-2048
+    docker run -d -p 8080:80 --name 2048 docker-2048
+```
 
-# run the docker container with your own build
+> Note: `--name 2048`to name the container.
 
-    git clone https://github.com/alexwhen/docker-2048.git
-    docker build -t "docker-2048" .
-    docker run -d -p 8080:80 docker-2048
+## Run the docker container by pulling the image directly
 
-# run the docker container by pulling the image directly
+```sh
+    docker run -d -p 8080:80 vladskvortsov/docker-2048
+```
+## Access the game
 
-    docker run -d -p 8080:80 alexwhen/docker-2048
-
-# Access the game
-
-    http://127.0.0.1:8080
+```sh
+    http://localhost:8080
+```
 
 If you run docker with boot2docker on Mac or Windows, the URL should be:
- 
+
+```sh
     http://192.168.59.103:8080
+```
