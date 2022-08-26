@@ -1,6 +1,6 @@
 # Light Docker version of 2048
 
-Based on alpine
+Based on Alpine
 
 Based on NGINX
 
